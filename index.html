@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OYSTRA — Bio-Antiseptik dari Alam</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --emerald: #059669;
+    --emerald-light: #10b981;
+    --emerald-dark: #047857;
+    --emerald-pale: #d1fae5;
+    --blue: #2563eb;
+    --blue-light: #3b82f6;
+    --blue-dark: #1d4ed8;
+    --off-white: #f0fdf4;
+    --white: #ffffff;
+    --dark: #0a1628;
+    --dark-2: #0f2042;
+    --gray: #6b7280;
+    --glass-bg: rgba(255,255,255,0.12);
+    --glass-border: rgba(255,255,255,0.25);
+    --glass-shadow: 0 8px 32px rgba(5,150,105,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--off-white); }
+  ::-webkit-scrollbar-thumb { background: var(--emerald); border-radius: 3px; }
+
+  /* ─── NAVBAR ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 1rem 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(240,253,244,0.75);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(5,150,105,0.15);
+    transition: all 0.3s ease;
+  }
+  .nav-logo {
+    font-size: 1.6rem; font-weight: 900; letter-spacing: -0.04em;
+    background: linear-gradient(135deg, var(--emerald), var(--blue));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .nav-logo span { font-weight: 300; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--dark); font-size: 0.875rem;
+    font-weight: 600; letter-spacing: 0.02em;
+    position: relative; padding-bottom: 2px;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+    background: var(--emerald); transition: width 0.3s;
+  }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    padding: 0.5rem 1.5rem; background: var(--emerald);
+    color: white; border-radius: 999px; font-weight: 700; font-size: 0.875rem;
+    text-decoration: none; transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(5,150,105,0.3);
+  }
+  .nav-cta:hover { background: var(--emerald-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(5,150,105,0.4); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 25px; height: 2px; background: var(--dark); border-radius: 2px; transition: all 0.3s; }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 40%, #eff6ff 100%);
+    padding: 8rem 5% 4rem;
+  }
+  .hero-bg-orb {
+    position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none;
+  }
+  .orb-1 { width: 600px; height: 600px; background: rgba(5,150,105,0.12); top: -100px; right: -100px; animation: floatOrb 8s ease-in-out infinite; }
+  .orb-2 { width: 400px; height: 400px; background: rgba(37,99,235,0.1); bottom: -50px; left: -50px; animation: floatOrb 10s ease-in-out infinite reverse; }
+  .orb-3 { width: 200px; height: 200px; background: rgba(5,150,105,0.08); top: 40%; left: 40%; animation: floatOrb 6s ease-in-out infinite 2s; }
+  @keyframes floatOrb { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(20px,-20px) scale(1.05)} }
+
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    align-items: center; position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; width: 100%;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(5,150,105,0.1); border: 1px solid rgba(5,150,105,0.25);
+    color: var(--emerald-dark); font-size: 0.75rem; font-weight: 700;
+    padding: 0.4rem 1rem; border-radius: 999px; letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 1.5rem; animation: slideDown 0.6s ease both;
+  }
+  .hero-badge::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 900; line-height: 1.05; letter-spacing: -0.04em;
+    animation: slideUp 0.7s ease 0.1s both;
+  }
+  .h1-green { color: var(--emerald); }
+  .h1-blue { color: var(--blue); }
+  .hero-sub {
+    font-size: 1.1rem; color: #374151; line-height: 1.7; font-weight: 400;
+    margin: 1.5rem 0 2.5rem;
+    animation: slideUp 0.7s ease 0.2s both;
+    max-width: 480px;
+  }
+  .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; animation: slideUp 0.7s ease 0.3s both; }
+  .btn-primary {
+    padding: 0.85rem 2rem; background: linear-gradient(135deg, var(--emerald), var(--blue));
+    color: white; border-radius: 999px; font-weight: 700; font-size: 0.95rem;
+    text-decoration: none; transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem;
+    box-shadow: 0 6px 25px rgba(5,150,105,0.35);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 35px rgba(5,150,105,0.45); }
+  .btn-secondary {
+    padding: 0.85rem 2rem; background: transparent;
+    color: var(--dark); border-radius: 999px; font-weight: 700; font-size: 0.95rem;
+    text-decoration: none; transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem;
+    border: 2px solid rgba(5,150,105,0.35);
+  }
+  .btn-secondary:hover { border-color: var(--emerald); background: rgba(5,150,105,0.06); transform: translateY(-3px); }
+
+  .hero-stats {
+    display: flex; gap: 2rem; margin-top: 2.5rem;
+    animation: slideUp 0.7s ease 0.4s both;
+  }
+  .stat-item { text-align: left; }
+  .stat-num { font-size: 2rem; font-weight: 900; color: var(--emerald); letter-spacing: -0.04em; line-height: 1; }
+  .stat-label { font-size: 0.75rem; color: var(--gray); font-weight: 600; margin-top: 2px; letter-spacing: 0.04em; text-transform: uppercase; }
+
+  /* Hero visual */
+  .hero-visual {
+    position: relative; animation: fadeIn 1s ease 0.4s both;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .hero-card-main {
+    background: var(--glass-bg);
+    backdrop-filter: blur(24px);
+    border: 1px solid var(--glass-border);
+    border-radius: 28px; padding: 2.5rem;
+    box-shadow: var(--glass-shadow), 0 2px 0 rgba(255,255,255,0.6) inset;
+    width: 100%; max-width: 380px;
+    position: relative; z-index: 2;
+  }
+  .soap-icon-wrap {
+    width: 120px; height: 120px; margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, rgba(5,150,105,0.15), rgba(37,99,235,0.15));
+    border-radius: 24px; display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .soap-icon-wrap::before {
+    content: ''; position: absolute; inset: 0;
+    background: conic-gradient(from 0deg, rgba(5,150,105,0.3), rgba(37,99,235,0.3), rgba(5,150,105,0.3));
+    animation: rotateBg 4s linear infinite;
+  }
+  @keyframes rotateBg { to { transform: rotate(360deg); } }
+  .soap-icon-inner {
+    position: relative; z-index: 1;
+    background: white; border-radius: 18px; width: 90px; height: 90px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+  }
+  .product-name { font-size: 1.5rem; font-weight: 900; text-align: center; letter-spacing: -0.02em; }
+  .product-tag { text-align: center; color: var(--gray); font-size: 0.8rem; margin-top: 0.3rem; }
+  .product-badges {
+    display: flex; gap: 0.5rem; justify-content: center; margin-top: 1.2rem; flex-wrap: wrap;
+  }
+  .badge-pill {
+    font-size: 0.65rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 999px;
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .bp-green { background: rgba(5,150,105,0.12); color: var(--emerald-dark); border: 1px solid rgba(5,150,105,0.2); }
+  .bp-blue { background: rgba(37,99,235,0.1); color: var(--blue-dark); border: 1px solid rgba(37,99,235,0.2); }
+  .bp-gray { background: rgba(107,114,128,0.1); color: #374151; border: 1px solid rgba(107,114,128,0.2); }
+
+  .floating-chip {
+    position: absolute; background: white;
+    border-radius: 14px; padding: 0.6rem 1rem;
+    box-shadow: 0 8px 24px rgba(5,150,105,0.18);
+    font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;
+    animation: floatChip 3s ease-in-out infinite;
+  }
+  .chip-1 { top: -1rem; right: -1rem; animation-delay: 0s; }
+  .chip-2 { bottom: 1rem; left: -2rem; animation-delay: 1.5s; }
+  .chip-icon { font-size: 1rem; }
+  @keyframes floatChip { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+  /* ─── SECTION COMMON ─── */
+  section { padding: 6rem 5%; position: relative; }
+  .section-label {
+    display: inline-block; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--emerald); margin-bottom: 0.75rem;
+    padding: 0.35rem 1rem; background: rgba(5,150,105,0.1); border-radius: 999px;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 900;
+    letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1rem;
+  }
+  .section-sub { font-size: 1rem; color: var(--gray); line-height: 1.7; max-width: 540px; }
+  .section-header { margin-bottom: 3.5rem; }
+
+  /* ─── HYGIENE GUIDE ─── */
+  #hygiene {
+    background: linear-gradient(180deg, var(--off-white) 0%, #ecfdf5 100%);
+  }
+  .hygiene-inner { max-width: 1200px; margin: 0 auto; }
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+  }
+  .step-card {
+    background: white;
+    border: 1px solid rgba(5,150,105,0.12);
+    border-radius: 24px; padding: 2rem 1.5rem;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative; overflow: hidden; cursor: default;
+  }
+  .step-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--emerald), var(--blue));
+    transform: scaleX(0); transform-origin: left; transition: transform 0.35s ease;
+  }
+  .step-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(5,150,105,0.15); }
+  .step-card:hover::before { transform: scaleX(1); }
+  .step-num {
+    font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em;
+    color: var(--emerald); margin-bottom: 1.2rem; opacity: 0.7;
+  }
+  .step-icon-wrap {
+    width: 56px; height: 56px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.7rem; margin-bottom: 1.2rem;
+  }
+  .si-1 { background: rgba(5,150,105,0.1); }
+  .si-2 { background: rgba(37,99,235,0.1); }
+  .si-3 { background: rgba(245,158,11,0.1); }
+  .si-4 { background: rgba(239,68,68,0.1); }
+  .step-title { font-size: 1rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+  .step-desc { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+  .step-detail {
+    display: flex; flex-direction: column; gap: 0.4rem; margin-top: 1rem;
+  }
+  .step-item {
+    display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.8rem; color: #374151;
+  }
+  .step-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--emerald); margin-top: 6px; flex-shrink: 0; }
+
+  /* ─── GALLERY ─── */
+  #gallery { background: var(--off-white); }
+  .gallery-inner { max-width: 1200px; margin: 0 auto; }
+  .masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 180px;
+    gap: 1.2rem;
+  }
+  .masonry-item {
+    border-radius: 20px; overflow: hidden;
+    position: relative; cursor: pointer;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s;
+  }
+  .masonry-item:hover { transform: scale(1.03); box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
+  .masonry-item.tall { grid-row: span 2; }
+  .masonry-item.wide { grid-column: span 2; }
+  .masonry-bg {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem;
+  }
+  .m-bg-1 { background: linear-gradient(135deg, #d1fae5, #a7f3d0); }
+  .m-bg-2 { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+  .m-bg-3 { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+  .m-bg-4 { background: linear-gradient(135deg, #fce7f3, #fbcfe8); }
+  .m-bg-5 { background: linear-gradient(135deg, #ede9fe, #ddd6fe); }
+  .m-bg-6 { background: linear-gradient(135deg, #dcfce7, #bbf7d0); }
+  .masonry-label {
+    position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem 1.2rem 1rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.65), transparent);
+    color: white;
+  }
+  .masonry-label h4 { font-size: 0.85rem; font-weight: 800; letter-spacing: 0.01em; }
+  .masonry-label p { font-size: 0.7rem; opacity: 0.8; margin-top: 2px; }
+  .masonry-phase {
+    position: absolute; top: 1rem; left: 1rem;
+    background: rgba(255,255,255,0.9); border-radius: 999px;
+    padding: 0.2rem 0.75rem; font-size: 0.65rem; font-weight: 800;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--emerald-dark);
+  }
+
+  /* ─── SCABIES PROTOCOL ─── */
+  #scabies {
+    background: linear-gradient(135deg, var(--dark) 0%, var(--dark-2) 100%);
+    color: white;
+  }
+  .scabies-inner { max-width: 1200px; margin: 0 auto; }
+  #scabies .section-label { color: #6ee7b7; background: rgba(110,231,183,0.1); border: 1px solid rgba(110,231,183,0.2); }
+  #scabies .section-title { color: white; }
+  #scabies .section-sub { color: rgba(255,255,255,0.6); }
+  .protocol-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .protocol-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px; padding: 2rem;
+    transition: all 0.35s; position: relative; overflow: hidden;
+  }
+  .protocol-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(5,150,105,0.1), transparent);
+    opacity: 0; transition: opacity 0.35s;
+  }
+  .protocol-card:hover { transform: translateY(-6px); border-color: rgba(5,150,105,0.4); }
+  .protocol-card:hover::before { opacity: 1; }
+  .proto-icon {
+    width: 64px; height: 64px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--emerald), var(--blue));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; margin-bottom: 1.5rem;
+    box-shadow: 0 8px 20px rgba(5,150,105,0.4);
+  }
+  .proto-step-num {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    font-size: 3rem; font-weight: 900; opacity: 0.08; letter-spacing: -0.05em;
+    color: white; line-height: 1;
+  }
+  .proto-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.75rem; color: white; }
+  .proto-desc { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.7; }
+  .proto-steps { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .proto-step-item {
+    display: flex; align-items: flex-start; gap: 0.6rem;
+    font-size: 0.8rem; color: rgba(255,255,255,0.7);
+  }
+  .proto-check { color: #6ee7b7; font-size: 0.75rem; margin-top: 2px; flex-shrink: 0; }
+  .cycle-banner {
+    margin-top: 3rem; padding: 2rem 2.5rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(110,231,183,0.2);
+    border-radius: 20px;
+    display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+  }
+  .cycle-icon { font-size: 3rem; flex-shrink: 0; }
+  .cycle-text h3 { font-size: 1.2rem; font-weight: 800; color: #6ee7b7; margin-bottom: 0.4rem; }
+  .cycle-text p { font-size: 0.875rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+  .cycle-arrow {
+    display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .cycle-step {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px; padding: 0.6rem 1.2rem;
+    font-size: 0.8rem; font-weight: 700; color: white;
+  }
+  .cycle-sep { color: #6ee7b7; font-size: 1.2rem; }
+
+  /* ─── PRODUCT ─── */
+  #product { background: linear-gradient(180deg, #ecfdf5 0%, var(--off-white) 100%); }
+  .product-inner { max-width: 1200px; margin: 0 auto; }
+  .product-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: center; }
+  .product-visual-area { position: relative; display: flex; justify-content: center; }
+  .product-3d {
+    width: 280px; height: 360px;
+    background: linear-gradient(160deg, #ecfdf5 0%, #d1fae5 50%, #a7f3d0 100%);
+    border-radius: 32px; display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    box-shadow: 0 30px 60px rgba(5,150,105,0.2), 0 0 0 1px rgba(5,150,105,0.1);
+    transition: transform 0.5s ease;
+  }
+  .product-3d:hover { transform: rotateY(-8deg) rotateX(3deg); }
+  .product-3d-inner {
+    text-align: center; position: relative; z-index: 2;
+  }
+  .product-main-icon { font-size: 6rem; display: block; margin-bottom: 1rem; }
+  .product-name-card { font-size: 2.5rem; font-weight: 900; letter-spacing: -0.04em; }
+  .product-name-card span { color: var(--emerald); }
+  .product-type { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); font-weight: 700; }
+  .product-3d::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), transparent 60%);
+  }
+  .float-badge-prod {
+    position: absolute; background: white;
+    border-radius: 14px; padding: 0.7rem 1rem;
+    box-shadow: 0 8px 24px rgba(5,150,105,0.18);
+    font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;
+    white-space: nowrap;
+  }
+  .fbp-1 { top: 2rem; right: -2rem; animation: floatChip 3s ease-in-out infinite; }
+  .fbp-2 { bottom: 3rem; left: -2rem; animation: floatChip 4s ease-in-out infinite 1s; }
+  .fbp-3 { top: 50%; right: -3rem; transform: translateY(-50%); animation: floatChip 5s ease-in-out infinite 0.5s; }
+  .fbp-icon { font-size: 1.1rem; }
+  .product-info h2 { font-size: 2.2rem; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 1rem; }
+  .product-info p { color: var(--gray); line-height: 1.7; font-size: 0.95rem; margin-bottom: 2rem; }
+  .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+  .spec-item {
+    background: white; border: 1px solid rgba(5,150,105,0.12);
+    border-radius: 16px; padding: 1.2rem; transition: all 0.3s;
+  }
+  .spec-item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(5,150,105,0.12); border-color: rgba(5,150,105,0.25); }
+  .spec-label { font-size: 0.7rem; font-weight: 700; color: var(--emerald); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.3rem; }
+  .spec-value { font-size: 1.1rem; font-weight: 900; letter-spacing: -0.02em; }
+  .product-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .prod-tag {
+    padding: 0.35rem 1rem; border-radius: 999px; font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+
+  /* ─── FEEDBACK ─── */
+  #feedback { background: linear-gradient(135deg, #ecfdf5 0%, #eff6ff 100%); }
+  .feedback-inner { max-width: 900px; margin: 0 auto; }
+  .form-glass {
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.8);
+    border-radius: 32px; padding: 3rem;
+    box-shadow: 0 20px 60px rgba(5,150,105,0.1), 0 1px 0 rgba(255,255,255,0.9) inset;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.2rem; }
+  .form-group label { font-size: 0.8rem; font-weight: 700; color: #374151; letter-spacing: 0.03em; }
+  .form-group input, .form-group select, .form-group textarea {
+    padding: 0.85rem 1.2rem;
+    background: rgba(255,255,255,0.8); border: 1.5px solid rgba(5,150,105,0.2);
+    border-radius: 14px; font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9rem; color: var(--dark); transition: all 0.3s;
+    outline: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--emerald); background: white;
+    box-shadow: 0 0 0 3px rgba(5,150,105,0.1);
+  }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .form-submit {
+    width: 100%; padding: 1rem;
+    background: linear-gradient(135deg, var(--emerald), var(--blue));
+    color: white; border: none; border-radius: 14px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1rem; font-weight: 700; cursor: pointer;
+    transition: all 0.3s; letter-spacing: 0.02em;
+    box-shadow: 0 6px 20px rgba(5,150,105,0.3);
+  }
+  .form-submit:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(5,150,105,0.4); }
+  .form-submit:active { transform: translateY(0); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--dark); color: white; padding: 4rem 5% 2rem;
+  }
+  .footer-inner { max-width: 1200px; margin: 0 auto; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  .footer-brand .nav-logo { font-size: 2rem; display: inline-block; }
+  .footer-brand p { color: rgba(255,255,255,0.5); font-size: 0.875rem; line-height: 1.7; margin-top: 1rem; max-width: 300px; }
+  .footer-col h4 { font-size: 0.75rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--emerald-light); margin-bottom: 1.2rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col ul li a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: white; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; }
+  .footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+  .footer-socials { display: flex; gap: 0.75rem; }
+  .social-btn {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; text-decoration: none; transition: all 0.2s;
+  }
+  .social-btn:hover { background: var(--emerald); border-color: var(--emerald); transform: translateY(-2px); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .steps-grid { grid-template-columns: repeat(2, 1fr); }
+    .protocol-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: span 2; }
+    .product-grid { grid-template-columns: 1fr; }
+    .product-visual-area { order: -1; margin-bottom: 2rem; }
+    .fbp-1, .fbp-2, .fbp-3 { display: none; }
+  }
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero-grid { grid-template-columns: 1fr; text-align: center; }
+    .hero-visual { display: none; }
+    .hero-buttons { justify-content: center; }
+    .hero-stats { justify-content: center; }
+    .masonry-grid { grid-template-columns: repeat(2, 1fr); }
+    .masonry-item.wide { grid-column: span 1; }
+    .masonry-item.tall { grid-row: span 1; }
+    .cycle-arrow { gap: 0.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-brand { grid-column: span 1; }
+    .spec-grid { grid-template-columns: 1fr; }
+    section { padding: 4rem 5%; }
+  }
+  @media (max-width: 480px) {
+    .steps-grid { grid-template-columns: 1fr; }
+    .protocol-grid { grid-template-columns: 1fr; }
+    .masonry-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">OY<span>S</span>TRA</div>
+  <ul class="nav-links">
+    <li><a href="#hygiene">Panduan</a></li>
+    <li><a href="#gallery">Galeri</a></li>
+    <li><a href="#scabies">Protokol</a></li>
+    <li><a href="#product">Produk</a></li>
+    <li><a href="#feedback">Kontak</a></li>
+  </ul>
+  <a href="#product" class="nav-cta">Pelajari Produk</a>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-orb orb-1"></div>
+  <div class="hero-bg-orb orb-2"></div>
+  <div class="hero-bg-orb orb-3"></div>
+  <div class="hero-grid">
+    <div class="hero-content">
+      <div class="hero-badge">🍄 Inovasi Bio-Antiseptik · Pesantren</div>
+      <h1>
+        Kulit <span class="h1-green">Sehat,</span><br>
+        Ibadah <span class="h1-blue">Kuat</span>
+      </h1>
+      <p class="hero-sub">
+        OYSTRA menghadirkan sabun bio-antiseptik berbasis jamur tiram — solusi alami, ilmiah, dan ramah lingkungan untuk kebersihan santri pesantren Indonesia.
+      </p>
+      <div class="hero-buttons">
+        <a href="#product" class="btn-primary">
+          🧼 Lihat Produk
+        </a>
+        <a href="#hygiene" class="btn-secondary">
+          📋 Panduan Mandi
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">5.8</div>
+          <div class="stat-label">pH Seimbang</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Bahan Alami</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">3x</div>
+          <div class="stat-label">Anti Skabies</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card-main">
+        <div class="soap-icon-wrap">
+          <div class="soap-icon-inner">🧼</div>
+        </div>
+        <div class="product-name">OYSTRA</div>
+        <div class="product-tag">Bio-Antiseptic Soap · Jamur Tiram</div>
+        <div class="product-badges">
+          <span class="badge-pill bp-green">pH Balanced</span>
+          <span class="badge-pill bp-blue">Eco-Friendly</span>
+          <span class="badge-pill bp-gray">Halal</span>
+        </div>
+      </div>
+      <div class="floating-chip chip-1">
+        <span class="chip-icon">🍄</span> Jamur Tiram
+      </div>
+      <div class="floating-chip chip-2">
+        <span class="chip-icon">🌿</span> 100% Alami
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HYGIENE GUIDE -->
+<section id="hygiene">
+  <div class="hygiene-inner">
+    <div class="section-header reveal">
+      <span class="section-label">Panduan Kebersihan</span>
+      <h2 class="section-title">5 Langkah Mandi<br>yang Benar & Sehat</h2>
+      <p class="section-sub">Ikuti panduan kebersihan harian ini untuk menjaga kulit santri tetap sehat, bebas penyakit, dan segar sepanjang hari.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-num">LANGKAH 01</div>
+        <div class="step-icon-wrap si-1">🚿</div>
+        <div class="step-title">Basahi Seluruh Tubuh</div>
+        <div class="step-desc">Mulai dari kepala hingga kaki dengan air bersih bersuhu normal untuk membuka pori-pori kulit secara optimal.</div>
+        <div class="step-detail">
+          <div class="step-item"><span class="step-dot"></span>Air bersih & mengalir</div>
+          <div class="step-item"><span class="step-dot"></span>Durasi 30–60 detik</div>
+          <div class="step-item"><span class="step-dot"></span>Hindari air terlalu panas</div>
+        </div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">LANGKAH 02</div>
+        <div class="step-icon-wrap si-2">🧴</div>
+        <div class="step-title">Aplikasikan Sabun OYSTRA</div>
+        <div class="step-desc">Tuangkan sabun OYSTRA secukupnya dan busakan merata ke seluruh permukaan kulit dengan gerakan melingkar lembut.</div>
+        <div class="step-detail">
+          <div class="step-item"><span class="step-dot"></span>Fokus pada lipatan kulit</div>
+          <div class="step-item"><span class="step-dot"></span>Gosok area sela jari</div>
+          <div class="step-item"><span class="step-dot"></span>Pijat ringan selama 2 menit</div>
+        </div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">LANGKAH 03</div>
+        <div class="step-icon-wrap si-3">⏱️</div>
+        <div class="step-title">Diamkan 2–3 Menit</div>
+        <div class="step-desc">Biarkan kandungan aktif enzim beta-glukan dari jamur tiram bekerja membunuh bakteri dan jamur patogen pada kulit.</div>
+        <div class="step-detail">
+          <div class="step-item"><span class="step-dot"></span>Kandungan beta-glukan aktif</div>
+          <div class="step-item"><span class="step-dot"></span>Membunuh Sarcoptes scabiei</div>
+          <div class="step-item"><span class="step-dot"></span>Menjaga kelembapan alami</div>
+        </div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">LANGKAH 04</div>
+        <div class="step-icon-wrap si-4">✅</div>
+        <div class="step-title">Bilas & Keringkan</div>
+        <div class="step-desc">Bilas hingga bersih lalu keringkan dengan handuk bersih masing-masing. Ganti handuk minimal 2× seminggu untuk hygiene optimal.</div>
+        <div class="step-detail">
+          <div class="step-item"><span class="step-dot"></span>Bilas hingga tidak licin</div>
+          <div class="step-item"><span class="step-dot"></span>Handuk pribadi & bersih</div>
+          <div class="step-item"><span class="step-dot"></span>Cuci handuk rutin 2x/minggu</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gallery-inner">
+    <div class="section-header reveal">
+      <span class="section-label">Perjalanan Produk</span>
+      <h2 class="section-title">Dari Alam ke Laboratorium,<br>Hingga ke Tangan Santri</h2>
+      <p class="section-sub">Setiap tetes sabun OYSTRA melewati proses seleksi ketat — dari budidaya jamur tiram segar hingga formulasi ilmiah modern.</p>
+    </div>
+    <div class="masonry-grid reveal">
+      <div class="masonry-item tall m-bg-1">
+        <div class="masonry-bg">🍄</div>
+        <div class="masonry-phase">Fase 1</div>
+        <div class="masonry-label">
+          <h4>Budidaya Jamur Tiram</h4>
+          <p>Media baglog organik terkontrol</p>
+        </div>
+      </div>
+      <div class="masonry-item m-bg-2">
+        <div class="masonry-bg">🔬</div>
+        <div class="masonry-phase">Fase 2</div>
+        <div class="masonry-label">
+          <h4>Ekstraksi Laboratorium</h4>
+          <p>Isolasi beta-glukan & enzim aktif</p>
+        </div>
+      </div>
+      <div class="masonry-item m-bg-3">
+        <div class="masonry-bg">⚗️</div>
+        <div class="masonry-phase">Fase 3</div>
+        <div class="masonry-label">
+          <h4>Formulasi Bio-Antiseptik</h4>
+          <p>Uji klinis pH 5.5–6.0</p>
+        </div>
+      </div>
+      <div class="masonry-item wide m-bg-4">
+        <div class="masonry-bg">🏭</div>
+        <div class="masonry-phase">Fase 4</div>
+        <div class="masonry-label">
+          <h4>Produksi & Quality Control</h4>
+          <p>Standar GMP · Sertifikasi Halal · Uji Keamanan BPOM</p>
+        </div>
+      </div>
+      <div class="masonry-item m-bg-5">
+        <div class="masonry-bg">📦</div>
+        <div class="masonry-phase">Fase 5</div>
+        <div class="masonry-label">
+          <h4>Pengemasan Ramah Lingkungan</h4>
+          <p>Botol daur ulang biodegradable</p>
+        </div>
+      </div>
+      <div class="masonry-item m-bg-6">
+        <div class="masonry-bg">🕌</div>
+        <div class="masonry-phase">Fase 6</div>
+        <div class="masonry-label">
+          <h4>Distribusi ke Pesantren</h4>
+          <p>Menjangkau santri seluruh Indonesia</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCABIES PROTOCOL -->
+<section id="scabies">
+  <div class="scabies-inner">
+    <div class="section-header reveal">
+      <span class="section-label">Protokol Pencegahan</span>
+      <h2 class="section-title">Cara Memutus Rantai<br>Penularan Skabies</h2>
+      <p class="section-sub">Skabies menyebar cepat di lingkungan asrama. Dengan protokol terpadu ini, penularan dapat dihentikan secara efektif dalam 2 minggu.</p>
+    </div>
+    <div class="protocol-grid">
+      <div class="protocol-card reveal">
+        <div class="proto-step-num">01</div>
+        <div class="proto-icon">☀️</div>
+        <div class="proto-title">Jemur Kasur & Bantal Harian</div>
+        <div class="proto-desc">Sinar UV matahari langsung membunuh tungau Sarcoptes scabiei yang bersarang di kain dan kasur dalam waktu 30–60 menit.</div>
+        <div class="proto-steps">
+          <div class="proto-step-item"><span class="proto-check">✓</span>Jemur pukul 09.00–11.00 WIB</div>
+          <div class="proto-step-item"><span class="proto-check">✓</span>Minimal 2 jam di bawah matahari langsung</div>
+          <div class="proto-step-item"><span class="proto-check">✓</span>Lakukan setiap hari selama 2 minggu</div>
+          <div class="proto-step-item"><span class="proto-check">✓</span>Balik posisi kasur di tengah waktu jemur</div>
+        </div>
+      </div>
+      <div class="protocol-card reveal">
+        <div class="proto-step-num">02</div>
+        <div class="proto-icon">🌡️</div>
+        <div class="proto-title">Rebus Pakaian & Handuk</div>
+        <div class="proto-desc">Suhu air mendidih di atas 60°C secara efektif memusnahkan tungau dan telurnya pada pakaian, handuk, serta sprei yang terinfeksi.</div>
+        <div class="proto-steps">
+          <div class="proto-step-item"><span class="proto-check">✓</span>Rebus pada suhu ≥60°C selama 10 menit</div>
+          <div class="proto-step-item"><span class="proto-check">✓</span>Pisahkan cucian yang terinfeksi</div>
+          <div class="proto-step-item"><span class="proto-check">✓</span>Gunakan deterjen antiseptik</div>
+          <div class="proto-step-item"><span class="proto-check">✓</span>Jemur hingga benar-benar kering</div>
+        </div>
+      </div>
+      <div class="protocol-card reveal">
+        <div class="proto-step-num">03</div>
+        <div class="proto-icon">💊</div>
+        <div class="proto-title">Pengobatan Kolektif Serentak</div>
+        <div class="proto-desc">Seluruh santri dalam satu kamar harus diobati bersamaan untuk mencegah reinfeksi dari penghuni yang tidak bergejala namun sudah terpapar.</div>
+        <div class="proto-steps">
+          <div class="proto-step-item"><span class="proto-check">✓</span>Oleskan krim permethrin 5% malam hari</div>
+          <div class="proto-step-item"><span class="proto-check">✓</span>Biarkan 8–12 jam lalu mandi bersih</div>
+          <div class="proto-step-item"><span class="proto-check">✓</span>Gunakan sabun OYSTRA setiap mandi</div>
+          <div class="proto-step-item"><span class="proto-check">✓</span>Ulangi pengobatan setelah 7 hari</div>
+        </div>
+      </div>
+    </div>
+    <div class="cycle-banner reveal">
+      <div class="cycle-icon">🔄</div>
+      <div style="flex:1;">
+        <div class="cycle-text">
+          <h3>Putus Rantai Skabies dalam 14 Hari</h3>
+          <p>Kombinasi tiga langkah di atas dengan penggunaan sabun OYSTRA dua kali sehari terbukti memutus siklus penularan skabies secara menyeluruh di lingkungan pesantren.</p>
+        </div>
+        <div class="cycle-arrow">
+          <span class="cycle-step">🦠 Tungau Aktif</span>
+          <span class="cycle-sep">→</span>
+          <span class="cycle-step">🧼 Sabun OYSTRA</span>
+          <span class="cycle-sep">→</span>
+          <span class="cycle-step">☀️ Jemur Kasur</span>
+          <span class="cycle-sep">→</span>
+          <span class="cycle-step">🌡️ Rebus Pakaian</span>
+          <span class="cycle-sep">→</span>
+          <span class="cycle-step">✅ Bebas Skabies</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT SHOWCASE -->
+<section id="product">
+  <div class="product-inner">
+    <div class="product-grid">
+      <div class="product-visual-area reveal">
+        <div class="product-3d">
+          <div class="product-3d-inner">
+            <span class="product-main-icon">🧼</span>
+            <div class="product-name-card">OY<span>STR</span>A</div>
+            <div class="product-type">Bio-Antiseptic Soap</div>
+          </div>
+        </div>
+        <div class="float-badge-prod fbp-1">
+          <span class="fbp-icon">🌿</span> Ekstrak Jamur Tiram
+        </div>
+        <div class="float-badge-prod fbp-2">
+          <span class="fbp-icon">💧</span> pH 5.5–6.0 Terjaga
+        </div>
+        <div class="float-badge-prod fbp-3">
+          <span class="fbp-icon">🛡️</span> Anti Skabies Teruji
+        </div>
+      </div>
+      <div class="product-info reveal">
+        <span class="section-label">Produk Unggulan</span>
+        <h2>Sabun OYSTRA<br>Bio-Antiseptik</h2>
+        <p>Diformulasikan khusus untuk kulit remaja aktif di lingkungan pesantren. Menggunakan ekstrak beta-glukan dari jamur tiram (<em>Pleurotus ostreatus</em>) yang telah terbukti secara ilmiah memiliki efek antijamur, antibakteri, dan penyembuhan kulit.</p>
+        <div class="spec-grid">
+          <div class="spec-item">
+            <div class="spec-label">Nilai pH</div>
+            <div class="spec-value">5.5 – 6.0</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">Volume</div>
+            <div class="spec-value">250 mL</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">Bahan Aktif</div>
+            <div class="spec-value">Beta-Glukan</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">Sertifikasi</div>
+            <div class="spec-value">Halal MUI</div>
+          </div>
+        </div>
+        <div class="product-tags">
+          <span class="prod-tag bp-green">✅ pH Seimbang</span>
+          <span class="prod-tag bp-blue">🌊 Eco-Friendly</span>
+          <span class="prod-tag" style="background:rgba(245,158,11,0.1);color:#92400e;border:1px solid rgba(245,158,11,0.2);">🌿 100% Organik</span>
+          <span class="prod-tag bp-gray">🛡️ Anti Skabies</span>
+          <span class="prod-tag" style="background:rgba(239,68,68,0.08);color:#991b1b;border:1px solid rgba(239,68,68,0.15);">🧪 Uji Klinis</span>
+        </div>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+          <a href="#feedback" class="btn-primary">📩 Hubungi Kami</a>
+          <a href="#hygiene" class="btn-secondary">📋 Cara Pakai</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEEDBACK PORTAL -->
+<section id="feedback">
+  <div class="feedback-inner">
+    <div class="section-header reveal" style="text-align:center;">
+      <span class="section-label">Portal Komunikasi</span>
+      <h2 class="section-title">Hubungi Tim OYSTRA</h2>
+      <p class="section-sub" style="margin:0 auto;">Ada pertanyaan, ingin bermitra, atau membutuhkan OYSTRA untuk pesantren Anda? Kami siap membantu.</p>
+    </div>
+    <div class="form-glass reveal">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nama Lengkap *</label>
+          <input type="text" placeholder="Masukkan nama Anda"/>
+        </div>
+        <div class="form-group">
+          <label>Nama Pesantren / Instansi</label>
+          <input type="text" placeholder="Nama pesantren atau lembaga"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Alamat Email *</label>
+          <input type="email" placeholder="email@contoh.com"/>
+        </div>
+        <div class="form-group">
+          <label>Nomor WhatsApp</label>
+          <input type="tel" placeholder="08xxxxxxxxxx"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Keperluan</label>
+        <select>
+          <option value="">-- Pilih keperluan --</option>
+          <option>Informasi Produk</option>
+          <option>Pembelian / Distribusi</option>
+          <option>Kerjasama Pesantren</option>
+          <option>Edukasi Kesehatan</option>
+          <option>Penelitian & Kolaborasi</option>
+          <option>Lainnya</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Pesan *</label>
+        <textarea placeholder="Ceritakan kebutuhan atau pertanyaan Anda di sini..."></textarea>
+      </div>
+      <button type="button" class="form-submit" onclick="submitForm(this)">
+        Kirim Pesan ke Tim OYSTRA 🚀
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo">OY<span>S</span>TRA</div>
+        <p>Bio-Antiseptic Soap berbasis jamur tiram untuk kesehatan kulit santri pesantren. Inovasi alami, bukti ilmiah, dampak nyata.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="#hygiene">Panduan Mandi</a></li>
+          <li><a href="#gallery">Galeri Produk</a></li>
+          <li><a href="#scabies">Protokol Skabies</a></li>
+          <li><a href="#product">Produk OYSTRA</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontak</h4>
+        <ul>
+          <li><a href="#">📧 oystra@email.com</a></li>
+          <li><a href="#">📱 +62 812 3456 7890</a></li>
+          <li><a href="#">📍 Jawa Timur, Indonesia</a></li>
+          <li><a href="#">🕌 Mitra Pesantren</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 OYSTRA · Inovasi Kesehatan Pesantren Indonesia. Semua hak dilindungi.</div>
+      <div class="footer-socials">
+        <a class="social-btn" href="#" title="Instagram">📸</a>
+        <a class="social-btn" href="#" title="WhatsApp">💬</a>
+        <a class="social-btn" href="#" title="YouTube">📺</a>
+        <a class="social-btn" href="#" title="TikTok">🎵</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => io.observe(el));
+
+  // Stagger children in grids
+  document.querySelectorAll('.steps-grid, .protocol-grid').forEach(grid => {
+    Array.from(grid.children).forEach((child, i) => {
+      child.style.transitionDelay = `${i * 0.1}s`;
+    });
+  });
+
+  // Nav scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.style.background = window.scrollY > 50
+      ? 'rgba(240,253,244,0.92)'
+      : 'rgba(240,253,244,0.75)';
+  });
+
+  // Parallax on hero orbs
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    document.querySelectorAll('.hero-bg-orb').forEach((orb, i) => {
+      orb.style.transform = `translateY(${y * (0.1 + i * 0.05)}px)`;
+    });
+  });
+
+  // Mobile menu
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    if (links.style.display === 'flex') {
+      links.style.display = 'none';
+    } else {
+      links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:70px;left:0;right:0;background:rgba(240,253,244,0.97);backdrop-filter:blur(20px);padding:2rem 5%;gap:1.5rem;border-bottom:1px solid rgba(5,150,105,0.15);z-index:999;';
+    }
+  }
+
+  // Form submit
+  function submitForm(btn) {
+    btn.textContent = '⏳ Mengirim...';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = '✅ Pesan Berhasil Dikirim!';
+      btn.style.background = 'linear-gradient(135deg, #047857, #1d4ed8)';
+      setTimeout(() => {
+        btn.textContent = 'Kirim Pesan ke Tim OYSTRA 🚀';
+        btn.style.background = '';
+        btn.disabled = false;
+      }, 3000);
+    }, 1500);
+  }
+
+  // Masonry hover label fade
+  document.querySelectorAll('.masonry-item').forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      item.querySelector('.masonry-label').style.background = 'linear-gradient(to top, rgba(5,150,105,0.85), transparent)';
+    });
+    item.addEventListener('mouseleave', () => {
+      item.querySelector('.masonry-label').style.background = 'linear-gradient(to top, rgba(0,0,0,0.65), transparent)';
+    });
+  });
+</script>
+</body>
+</html>
